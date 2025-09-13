@@ -1,4 +1,5 @@
 import express from 'express';
+import LogFactory from '../log_factory.ts';
 
 const defaultError = {
   status: 500,
@@ -14,7 +15,7 @@ const defaultError = {
  */
 async function exceptionHandler(err: Error, req: express.Request, res: express.Response, next: express.NextFunction) {
   let message = err.message;
-  console.error(err);
+  LogFactory.getLogger().error(err);
 
   const errorInfo = defaultError;
   const errorStatus = String(errorInfo.status);

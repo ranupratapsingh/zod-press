@@ -1,0 +1,16 @@
+{
+  "name": "zod-press",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "ZodPress: a boilerplate for backend microservice providing REST APIs",
+  "main": "index.ts",
+  "scripts": {
+    "start": "bun run index.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3"
+  }
+}

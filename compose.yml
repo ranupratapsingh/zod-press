@@ -1,0 +1,12 @@
+name: zod-press
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/opt/zod_press
+    environment:
+      - NODE_ENV=development

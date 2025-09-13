@@ -10,6 +10,7 @@ const defaultConfig = {
   appEnv,
   nodeEnv,
   PORT: 3000,
+  authTokenS2sUrl: 'http://localhost:4001',
   cache_redis: {
     port: 6379,
     db: 0,

@@ -1,5 +1,5 @@
 import express from 'express';
-import LogFactory from '../../lib/log_factory';
+import LogFactory from '../../lib/log_factory.ts';
 
 class PingController {
   async ping(req: express.Request, res: express.Response) {

@@ -10,6 +10,12 @@ const defaultConfig = {
   appEnv,
   nodeEnv,
   PORT: 3000,
+  cache_redis: {
+    port: 6379,
+    db: 0,
+    clusterMode: false,
+    tls: null,
+  },
 };
 
 let envConfig = {};

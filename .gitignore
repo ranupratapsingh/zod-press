@@ -1,3 +1,4 @@
+config/secrets.js
 log
 !log/.keep
 node_modules

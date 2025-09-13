@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import express from 'express';
 
 class PingController {
-  async ping(_req: Request, res: Response) {
+  async ping(_req: express.Request, res: express.Response) {
     res.send({ message: 'Pong!' });
   }
 }

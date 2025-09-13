@@ -1,0 +1,7 @@
+import express from "express";
+import pingController from "../app/controllers/ping_controller.ts";
+
+const router = express.Router();
+router.get('/ping', pingController.ping);
+
+export default router;

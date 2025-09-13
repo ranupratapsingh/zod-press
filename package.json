@@ -16,7 +16,9 @@
     "@opentelemetry/sdk-node": "^0.205.0",
     "@opentelemetry/semantic-conventions": "^1.37.0",
     "express": "^5.1.0",
-    "lodash": "^4.17.21",
+    "ioredis": "^5.7.0",
+    "jsonapi-serializer": "^3.6.9",
+    "lodash-es": "^4.17.21",
     "pino": "^9.9.5"
   },
   "devDependencies": {

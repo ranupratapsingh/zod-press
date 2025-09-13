@@ -6,6 +6,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
+      - "9229:9229"
     volumes:
       - .:/opt/zod_press
     environment:

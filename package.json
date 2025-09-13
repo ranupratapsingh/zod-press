@@ -5,13 +5,27 @@
   "description": "ZodPress: a boilerplate for backend microservice providing REST APIs",
   "main": "index.ts",
   "scripts": {
-    "start": "bun run index.ts"
+    "start": "bun --import ./config/initializers/otel_sdk.js index.js",
+    "dev": "bun index.ts"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.64.1",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.205.0",
+    "@opentelemetry/resources": "^2.1.0",
+    "@opentelemetry/sdk-node": "^0.205.0",
+    "@opentelemetry/semantic-conventions": "^1.37.0",
     "express": "^5.1.0",
+    "ioredis": "^5.7.0",
+    "jsonapi-serializer": "^3.6.9",
+    "lodash-es": "^4.17.21",
     "pino": "^9.9.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.3"
+  },
+  "engines": {
+    "bun": ">=1.2",
+    "node": ">=24"
   }
 }

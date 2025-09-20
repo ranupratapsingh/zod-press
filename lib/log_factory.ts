@@ -1,7 +1,20 @@
-import pino from 'pino';
+import config from '../config/env.js';
 import contextStorage from './context-storage.ts';
+import pino from 'pino';
 
-const defaultLogger = pino();
+const pinoConfig = {
+  name: 'zod-press',
+  level: config.logLevel || 'info',
+  formatters: {
+    level: (label) => {
+      return {
+        level: label,
+      };
+    }
+  }
+};
+
+const defaultLogger = pino(pinoConfig);
 
 class LogFactory {
   static logger = defaultLogger;
@@ -17,8 +30,8 @@ class LogFactory {
    */
   static getLogger(moduleName: string | null = null): pino.Logger {
     const baseLogger = this.logger;
-    let additionalInfo: any = moduleName ? { mod_name: moduleName } : {};
-    const reqStore: any = contextStorage.getStore();
+    let additionalInfo: object = moduleName ? { mod_name: moduleName } : {};
+    const reqStore: Map<string, unknown> = contextStorage.getStore();
     const reqId = reqStore && reqStore.get('request_id');
     additionalInfo = { ...additionalInfo, request_id: reqId };
 

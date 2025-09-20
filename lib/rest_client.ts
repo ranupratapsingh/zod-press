@@ -1,9 +1,9 @@
-import pino from 'pino';
 import LogFactory from './log_factory.ts';
+import pino from 'pino';
 
 interface ReqOpts {
   method?: string;
-  headers?: any;
+  headers?: HeadersInit;
   timeout?: number;
   body?: string | URLSearchParams | null;
   signal?: AbortSignal;
@@ -33,7 +33,7 @@ class RestClient {
   static async post(url: string, data = {}, opts?: ReqOpts) {
     const { timeout, headers } = opts || {};
     const body = data instanceof URLSearchParams ? data : JSON.stringify(data);
-    let options = {
+    const options = {
       method: 'POST',
       body,
       headers,
@@ -54,7 +54,7 @@ class RestClient {
   static async patch(url: string, data = {}, opts?: ReqOpts) {
     const { timeout, headers } = opts || {};
     const body = data instanceof URLSearchParams ? data.toString() : JSON.stringify(data);
-    let options = {
+    const options = {
       method: 'PATCH',
       headers,
       body,
@@ -74,7 +74,7 @@ class RestClient {
 
   static async delete(url: string, opts?: ReqOpts) {
     const { timeout, headers } = opts || {};
-    let options = {
+    const options = {
       method: 'DELETE',
       headers,
       timeout,
@@ -126,9 +126,12 @@ class RestClient {
 
         return { ok: response.ok, response, json };
       }
+      logger.info(`Request not OK: ${response.status} ${response.statusText}`);
+      const errBody = await response.text();
+      logger.info(`Err Response Body: ${errBody}`);
 
-      return { ok, response };
-    } catch (err: any) {
+      return { ok, response: respClone };
+    } catch (err) {
       logger.error(`Error in request: ${err.message}`);
       logger.error(err);
       if (err.name === 'TimeoutError') {
@@ -139,17 +142,18 @@ class RestClient {
     }
   }
 
-  static _logRequestDetails(url: any, reqInitObj: ReqOpts, logger?: pino.Logger) {
+  static _logRequestDetails(url: string, reqInitObj: ReqOpts, logger?: pino.Logger) {
     logger = logger || LogFactory.getLogger('RestClient');
     logger.info({ method: reqInitObj.method, url }, `Started ${reqInitObj.method} for ${url}`);
+    logger.debug(reqInitObj.headers, 'Request Headers: ');
     logger.debug(`Request Body: ${reqInitObj.body}`);
   }
 
-  static _reqHeaders(headers: {}) {
+  static _reqHeaders(headers: object) {
     const defaultHeaders = getDefaultHeaders();
     headers = headers || {};
 
-    return { ...defaultHeaders, ...headers };
+    return new Headers({ ...defaultHeaders, ...headers });
   }
 }
 

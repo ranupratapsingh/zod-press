@@ -1,6 +1,6 @@
-import express from 'express';
 import { extractTokenFromReq, fetchTokenResponse } from '../utils/token_utils.ts';
 import type { AppRequest } from '../extensions/app_http_messages.ts';
+import express from 'express';
 
 /**
  * middleware function to set current user on the basis of token in the request.

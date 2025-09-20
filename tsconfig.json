@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+     "noEmit": true, // https://nodejs.org/api/typescript.html
+     "target": "esnext",
+     "module": "nodenext",
+     "rewriteRelativeImportExtensions": true,
+     "erasableSyntaxOnly": true,
+     "verbatimModuleSyntax": true
+  }
+}

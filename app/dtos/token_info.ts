@@ -7,8 +7,9 @@ class TokenInfo {
   clientId: string;
   sub: string;
   tokenUse: string;
-  errors: any[];
-  constructor(attrs: any = {}) {
+  errors: Array<string>;
+
+  constructor(attrs: object = {}) {
     this.active = attrs['active'];
     this.scope = attrs['scope'];
     this.clientId = attrs['client_id'];

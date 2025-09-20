@@ -1,13 +1,14 @@
-import express from 'express';
 import LogFactory from '../log_factory.ts';
 import RestClient from '../rest_client.ts';
-import config from '../../config/env.js';
 import TokenInfo from '../../app/dtos/token_info.ts';
+import config from '../../config/env.js';
+import express from 'express';
 
 async function fetchTokenResponse(token: string): Promise<TokenInfo | undefined> {
   const logger = LogFactory.getLogger('tokenUtil#fetchTokenResponse');
   if (!token || (token.split('.').length < 2)) {
     logger.warn('Invalid token format');
+
     return;
   }
 
@@ -18,13 +19,14 @@ async function fetchTokenResponse(token: string): Promise<TokenInfo | undefined>
     'content-type': 'application/x-www-form-urlencoded',
   };
   try {
-    const { ok, json, error } = await RestClient.post(fullUrl, data, { headers });;
+    const { ok, json, error } = await RestClient.get(fullUrl, data, { headers });;
     if (ok) {
-      const tokenInfo = new TokenInfo(json.data);
+      const tokenInfo = new TokenInfo(json);
+
       return tokenInfo;
     }
     logger.error(error);
-  } catch (err: any) {
+  } catch (err) {
     logger.error('Error fetching Auth Token: ' + err.message);
   }
 }
@@ -43,6 +45,7 @@ function extractTokenFromReq(req: express.Request): string | null {
   const token = bearerToken.split(' ')[1];
   if (!token || (token.split('.').length < 2)) {
     LogFactory.getLogger('tokenUtil#extractTokenFromReq').warn('Invalid token format');
+
     return null;
   }
 

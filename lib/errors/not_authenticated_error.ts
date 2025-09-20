@@ -1,4 +1,4 @@
-import ExpectedError from "./expected_error.ts";
+import ExpectedError from './expected_error.ts';
 
 // Error to throw for known scenarios
 class NotAuthenticatedError extends ExpectedError {

@@ -1,7 +1,7 @@
 import devConfig from './envs/dev.js';
+import { merge } from 'lodash-es';
 import prodConfig from './envs/prod.js';
 import testConfig from './envs/test.js';
-import { merge } from 'lodash-es';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const appEnv = process.env.APP_ENV || nodeEnv;

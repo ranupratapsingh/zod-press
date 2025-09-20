@@ -22,7 +22,10 @@
     "pino": "^9.9.5"
   },
   "devDependencies": {
-    "@types/express": "^5.0.3"
+    "@eslint/js": "^9.36.0",
+    "@types/express": "^5.0.3",
+    "eslint": "^9.36.0",
+    "typescript-eslint": "^8.44.0"
   },
   "engines": {
     "bun": ">=1.2",

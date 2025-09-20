@@ -2,10 +2,9 @@
  * nodejs custom loader new way below
  * Ref: https://github.com/nodejs/node/issues/51196
  */
-import { register } from "node:module";
-import { pathToFileURL } from "node:url";
-
-register("@opentelemetry/instrumentation/hook.mjs", pathToFileURL("./"));
+import { pathToFileURL } from 'node:url';
+import { register } from 'node:module';
+register('@opentelemetry/instrumentation/hook.mjs', pathToFileURL('./'));
 // register customer loader ends
 
 /**
@@ -15,15 +14,13 @@ register("@opentelemetry/instrumentation/hook.mjs", pathToFileURL("./"));
  * This is experimental https://github.com/open-telemetry/opentelemetry-js/blob/main/doc/esm-support.md\
  * #instrumentation-hook-required-for-esm
  */
-import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { ATTR_DEPLOYMENT_ENVIRONMENT_NAME } from '@opentelemetry/semantic-conventions/incubating';
+import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
 import { NodeSDK } from '@opentelemetry/sdk-node';
-import { resourceFromAttributes } from '@opentelemetry/resources';
 import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-
-const apmBaseUrl = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+import { resourceFromAttributes } from '@opentelemetry/resources';
 
 const resource = resourceFromAttributes({
   [ATTR_SERVICE_NAME]: 'zod-press',

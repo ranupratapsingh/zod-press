@@ -19,7 +19,8 @@
     "ioredis": "^5.7.0",
     "jsonapi-serializer": "^3.6.9",
     "lodash-es": "^4.17.21",
-    "pino": "^9.9.5"
+    "pino": "^9.9.5",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

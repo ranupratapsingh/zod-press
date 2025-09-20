@@ -4,6 +4,8 @@ import productsController from '../app/controllers/products_controller.ts';
 
 const router = express.Router();
 router.get('/ping', pingController.ping);
+router.post('/products', productsController.create);
 router.get('/products', productsController.index);
+router.get('/products/:id', productsController.show);
 
 export default router;

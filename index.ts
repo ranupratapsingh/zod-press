@@ -8,6 +8,7 @@ import setSessionInfo from './lib/middlewares/set_session_info.ts';
 
 const app = express();
 app.use(attachRequestContext);
+app.use(express.json()); // parse json body
 app.use(setSessionInfo);
 app.use('/zod-press/v1/', router);
 // error handling

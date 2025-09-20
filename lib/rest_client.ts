@@ -126,8 +126,11 @@ class RestClient {
 
         return { ok: response.ok, response, json };
       }
+      logger.info(`Request not OK: ${response.status} ${response.statusText}`);
+      const errBody = await response.text();
+      logger.info(`Err Response Body: ${errBody}`);
 
-      return { ok, response };
+      return { ok, response: respClone };
     } catch (err: any) {
       logger.error(`Error in request: ${err.message}`);
       logger.error(err);
@@ -142,6 +145,7 @@ class RestClient {
   static _logRequestDetails(url: any, reqInitObj: ReqOpts, logger?: pino.Logger) {
     logger = logger || LogFactory.getLogger('RestClient');
     logger.info({ method: reqInitObj.method, url }, `Started ${reqInitObj.method} for ${url}`);
+    logger.debug(reqInitObj.headers, `Request Headers: `);
     logger.debug(`Request Body: ${reqInitObj.body}`);
   }
 

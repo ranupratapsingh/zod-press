@@ -1,7 +1,7 @@
 import devConfig from './envs/dev.js';
 import prodConfig from './envs/prod.js';
 import testConfig from './envs/test.js';
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const appEnv = process.env.APP_ENV || nodeEnv;
@@ -29,6 +29,6 @@ if (defaultConfig.appEnv === 'production') {
   envConfig = devConfig;
 }
 
-const appConfig = _.merge(defaultConfig, envConfig);
+const appConfig = merge(defaultConfig, envConfig);
 
 export default appConfig;

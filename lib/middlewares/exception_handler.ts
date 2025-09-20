@@ -1,5 +1,6 @@
 import express from 'express';
 import LogFactory from '../log_factory.ts';
+import ExpectedError from '../errors/expected_error.ts';
 
 const defaultError = {
   status: 500,
@@ -15,14 +16,21 @@ const defaultError = {
  */
 async function exceptionHandler(err: Error, req: express.Request, res: express.Response, next: express.NextFunction) {
   let message = err.message;
-  LogFactory.getLogger().error(err);
+  let errorTitle:string = defaultError.title;
+  let statusCode:number = defaultError.status;
+  if(err instanceof ExpectedError){
+    statusCode = err.statusCode;
+    errorTitle = err.title;
+    LogFactory.getLogger().warn(err.message);
+  } else {
+    LogFactory.getLogger().error(err);
+  }
 
   const errorInfo = defaultError;
-  const errorStatus = String(errorInfo.status);
+  const errorStatus = String(statusCode);
   const errorDetail = err.message || errorInfo.message;
-  const errorTitle = errorInfo.title;
 
-  res.status(errorInfo.status).send({
+  res.status(statusCode).send({
     message,
     errors: [{
       status: errorStatus,

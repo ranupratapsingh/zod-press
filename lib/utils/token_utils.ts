@@ -18,9 +18,9 @@ async function fetchTokenResponse(token: string): Promise<TokenInfo | undefined>
     'content-type': 'application/x-www-form-urlencoded',
   };
   try {
-    const { ok, json, error } = await RestClient.post(fullUrl, data, { headers });;
+    const { ok, json, error } = await RestClient.get(fullUrl, data, { headers });;
     if (ok) {
-      const tokenInfo = new TokenInfo(json.data);
+      const tokenInfo = new TokenInfo(json);
       return tokenInfo;
     }
     logger.error(error);

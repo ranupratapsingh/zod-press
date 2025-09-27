@@ -1,3 +1,4 @@
+.env
 config/secrets.js
 log
 !log/.keep

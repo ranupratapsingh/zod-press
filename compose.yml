@@ -11,3 +11,26 @@ services:
       - .:/opt/zod_press
     environment:
       - NODE_ENV=development
+
+  cache:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache_data:/var/lib/redis
+
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=zod_press_dev
+      - MYSQL_USER=zod_press
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+  cache_data:
